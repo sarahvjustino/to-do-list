@@ -13,6 +13,7 @@ body {
 }
 
 main {
+  width: 80%;
   .container {
     display: flex;
     flex-direction: column;
@@ -46,7 +47,7 @@ main {
         padding: 1rem;
         border: none;
         border-radius: 0.5rem 0 0 0.5rem;
-        width: 50%;
+        max-width: 72%;
         font-size: 1.6rem;
         color: $text-color;
 
@@ -73,7 +74,12 @@ main {
       display: flex;
       flex-direction: column;
       gap: 1rem;
-      width: clamp(70rem, 10vw + 2rem, 25rem);
+      width: 75%;
+
+      @include mobile {
+        padding: 2rem 2rem;
+        width: 100%;
+      }
 
       &-empty {
         text-align: center;
@@ -91,8 +97,18 @@ main {
         gap: 1rem;
         background-color: $task-background;
 
+        @include mobile {
+          flex-direction: column;
+          width: 100%;
+        }
+
         .task-content {
           color: $text-color;
+
+          @include mobile {
+            max-width: 80%;
+            word-wrap: break-word;
+          }
         }
 
         .task-button {
@@ -104,6 +120,10 @@ main {
           transition: 0.5s;
           font-size: 1.6rem;
           border-radius: 0.8rem;
+
+          @include mobile {
+            padding: 0.8rem;
+          }
 
           &:hover {
             background-color: $title-color;

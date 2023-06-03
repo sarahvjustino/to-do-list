@@ -6,7 +6,6 @@ const empty = taskContainer.querySelector('.tasks-container-empty');
 addButton.addEventListener('click', createTask);
 
 function createTask() {
-  empty.classList.add('hide')
   if (taskInput.value == '') {
     return
   }
@@ -50,6 +49,8 @@ function createTask() {
   editButton.forEach(button => {
     button.addEventListener('click', editTask);
   })
+
+  updateEmptyMessage();
 }
 
 function checkTask() {
@@ -59,13 +60,14 @@ function checkTask() {
 }
 
 function deleteTask() {
-  this.parentNode.parentNode.remove()
+  const task = this.parentNode.parentNode;
+  task.remove();
+  updateEmptyMessage();
 }
 
 function editTask() {
-  const task = this.closest('.task');
-  const taskContent = document.querySelector('.task-content');
-  const editButton = task.querySelector('.btnEdit');
+  const task = this.parentNode.parentNode;
+  const taskContent = task.querySelector('.task-content');
 
   taskContent.setAttribute('contenteditable', true);
   taskContent.focus();
@@ -85,5 +87,13 @@ function editTask() {
     taskContent.setAttribute('contenteditable', false);
     taskContent.removeEventListener('keydown', handleKeyDown);
     taskContent.removeEventListener('blur', saveEditedTask);
+  }
+}
+
+function updateEmptyMessage() {
+  if (taskContainer.children.length === 0) {
+    empty.classList.remove('hide');
+  } else {
+    empty.classList.add('hide');
   }
 }
